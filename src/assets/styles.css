@@ -1,0 +1,14 @@
+html {
+    background-color: #d4d4d4;
+    display: flex;
+    width: 100%;
+}
+
+body {
+    background-color: white;
+    width: 100%;
+    max-width: 640px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-height: 100vh;
+}
