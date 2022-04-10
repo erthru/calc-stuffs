@@ -24,7 +24,6 @@ export type Activity = {
 export type ActivityTask = {
     label: string;
     cost: number;
-    isCheck: boolean;
 };
 
 const ACTIVITY_COL_NAME = "activities";
@@ -114,14 +113,48 @@ export const useActivityStore = defineStore({
             }
         },
 
-        async addTask(id: string, label: string, cost: string) {},
+        async addTask(id: string, label: string, cost: number) {
+            const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
+            const activitySnapshot = await getDoc(dr);
 
-        async toggleCheck(id: string, isCheck: boolean, label: string) {},
+            const checkTasks = activitySnapshot
+                .data()
+                ?.tasks.filter((task: any) => task.label === label);
+
+            const tempTasks = [...activitySnapshot.data()?.tasks];
+
+            if (checkTasks.length > 0) throw "Task Exist";
+            else {
+                tempTasks.push({
+                    label,
+                    cost,
+                });
+
+                await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
+                    name: activitySnapshot.data()?.name,
+                    tasks: tempTasks,
+                    userId: activitySnapshot.data()?.userId,
+                });
+            }
+        },
 
         async delete(id: string) {
             await deleteDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id));
         },
 
-        async deleteTask(id: string, label: string) {},
+        async deleteTask(id: string, label: string) {
+            const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
+            const activitySnapshot = await getDoc(dr);
+
+            const filteredTasks = [...activitySnapshot.data()?.tasks].filter(
+                (task) => task.label !== label
+            );
+
+            await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
+                name: activitySnapshot.data()?.name,
+                tasks: filteredTasks,
+                userId: activitySnapshot.data()?.userId,
+            });
+        },
     },
 });

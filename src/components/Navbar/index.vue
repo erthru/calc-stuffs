@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, type PropType } from "vue";
+import { RouterLink } from "vue-router";
 
 const isOptionsShown = ref(false);
 const options = ref<HTMLDivElement>();
@@ -8,6 +9,7 @@ const emit = defineEmits(["optionSelected"]);
 const props = defineProps({
     title: String,
     options: Object as PropType<string[]>,
+    backTo: String,
 });
 
 const dismissOptions = () => {
@@ -31,8 +33,19 @@ const onOptionSelected = (index: number) => {
 </script>
 
 <template>
-    <div class="bg-red-500 px-16px py-14px flex w-full shadow-lg items-center z-1">
-        <p class="text-white font-700 text-[18px]">{{ props.title }}</p>
+    <div
+        class="bg-red-500 px-16px py-14px flex w-full shadow-lg items-center z-1"
+    >
+        <RouterLink v-if="props.backTo" :to="props.backTo">
+            <IconAngleLeft class="w-20px h-20px mt-6px cursor-pointer text-white" />
+        </RouterLink>
+
+        <p
+            class="text-white font-700 text-[18px]"
+            :class="{ 'ml-16px': props.backTo }"
+        >
+            {{ props.title }}
+        </p>
 
         <div v-if="props.options?.length!! > 0" class="ml-auto relative">
             <IconEllipsisVertical

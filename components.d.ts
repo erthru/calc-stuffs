@@ -9,15 +9,18 @@ declare module 'vue' {
     CSModal: typeof import('./src/components/common/CSModal.vue')['default']
     CSTextField: typeof import('./src/components/common/CSTextField.vue')['default']
     FormAddActivity: typeof import('./src/components/Form/AddActivity.vue')['default']
+    FormAddTask: typeof import('./src/components/Form/AddTask.vue')['default']
     FormLogin: typeof import('./src/components/Form/Login.vue')['default']
     FormRegister: typeof import('./src/components/Form/Register.vue')['default']
     FormUpdateActivity: typeof import('./src/components/Form/UpdateActivity.vue')['default']
+    IconAngleLeft: typeof import('./src/assets/icons/IconAngleLeft.svg')['default']
     IconCircleInfo: typeof import('./src/assets/icons/IconCircleInfo.svg')['default']
     IconCircleNotch: typeof import('./src/assets/icons/IconCircleNotch.svg')['default']
     IconEllipsisVertical: typeof import('./src/assets/icons/IconEllipsisVertical.svg')['default']
     IconPenToSquare: typeof import('./src/assets/icons/IconPenToSquare.svg')['default']
     IconTrash: typeof import('./src/assets/icons/IconTrash.svg')['default']
     ListActivities: typeof import('./src/components/List/Activities.vue')['default']
+    ListTasks: typeof import('./src/components/List/Tasks.vue')['default']
     Navbar: typeof import('./src/components/Navbar/index.vue')['default']
   }
 }

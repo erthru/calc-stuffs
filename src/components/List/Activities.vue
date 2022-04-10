@@ -34,7 +34,7 @@ const _delete = async (id: string) => {
                 <p class="font-500 text-gray-800">{{ activity.name }}</p>
 
                 <p class="text-gray-500 text-12px mt-2px">
-                    {{ activity.tasks.length }} tasks
+                    {{ activity.tasks ? activity.tasks.length : 0 }} tasks
                 </p>
             </RouterLink>
 
