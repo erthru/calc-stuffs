@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CSAlert: typeof import('./src/components/common/CSAlert.vue')['default']
     CSButton: typeof import('./src/components/common/CSButton.vue')['default']
+    CSCheck: typeof import('./src/components/common/CSCheck.vue')['default']
     CSModal: typeof import('./src/components/common/CSModal.vue')['default']
     CSTextField: typeof import('./src/components/common/CSTextField.vue')['default']
     FormAddActivity: typeof import('./src/components/Form/AddActivity.vue')['default']
@@ -16,6 +17,7 @@ declare module 'vue' {
     FormUpdateActivity: typeof import('./src/components/Form/UpdateActivity.vue')['default']
     FormUpdateTask: typeof import('./src/components/Form/UpdateTask.vue')['default']
     IconAngleLeft: typeof import('./src/assets/icons/IconAngleLeft.svg')['default']
+    IconCheck: typeof import('./src/assets/icons/IconCheck.svg')['default']
     IconCircleInfo: typeof import('./src/assets/icons/IconCircleInfo.svg')['default']
     IconCircleNotch: typeof import('./src/assets/icons/IconCircleNotch.svg')['default']
     IconEllipsisVertical: typeof import('./src/assets/icons/IconEllipsisVertical.svg')['default']

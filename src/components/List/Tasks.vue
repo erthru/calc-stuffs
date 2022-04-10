@@ -30,7 +30,14 @@ const _delete = async (label: string) => {
                     }
                 "
             >
-                <p class="font-500 text-gray-800">{{ task.label }}</p>
+                <div class="flex items-center w-full">
+                    <p class="font-500 text-gray-800">{{ task.label }}</p>
+
+                    <IconCheck
+                        v-if="task.isCheck"
+                        class="w-14px h-14px text-green-500 ml-4px"
+                    />
+                </div>
 
                 <p class="text-gray-500 text-12px mt-2px">
                     {{ task.cost.toLocaleString() }}

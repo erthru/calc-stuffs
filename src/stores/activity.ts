@@ -24,6 +24,7 @@ export type Activity = {
 export type ActivityTask = {
     label: string;
     cost: number;
+    isCheck: boolean;
 };
 
 const ACTIVITY_COL_NAME = "activities";
@@ -128,6 +129,7 @@ export const useActivityStore = defineStore({
                 tempTasks.push({
                     label,
                     cost,
+                    isCheck: false,
                 });
 
                 await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
@@ -138,12 +140,18 @@ export const useActivityStore = defineStore({
             }
         },
 
-        async updateTask(id: string, taskIndex: number, cost: number) {
+        async updateTask(
+            id: string,
+            taskIndex: number,
+            cost: number,
+            isCheck: boolean
+        ) {
             const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
             const activitySnapshot = await getDoc(dr);
 
             const tempTasks = [...activitySnapshot.data()?.tasks];
             tempTasks[taskIndex].cost = cost;
+            tempTasks[taskIndex].isCheck = isCheck;
 
             await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
                 name: activitySnapshot.data()?.name,

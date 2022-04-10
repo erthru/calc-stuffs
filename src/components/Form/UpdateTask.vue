@@ -10,6 +10,7 @@ const props = defineProps({
 const emit = defineEmits(["success"]);
 const label = ref("");
 const cost = ref("");
+const isCheck = ref(false);
 const isLoading = ref(false);
 const activityStore = useActivityStore();
 const route = useRoute();
@@ -19,6 +20,8 @@ onMounted(() => {
 
     cost.value =
         activityStore.activityById.tasks[props.index!!].cost.toString();
+
+    isCheck.value = activityStore.activityById.tasks[props.index!!].isCheck;
 });
 
 const submit = async (e: Event) => {
@@ -29,7 +32,8 @@ const submit = async (e: Event) => {
     await activityStore.updateTask(
         route.params.id as string,
         props.index!!,
-        Number(cost.value)
+        Number(cost.value),
+        isCheck.value
     );
 
     await activityStore.fetchById(route.params.id as string);
@@ -56,6 +60,8 @@ const submit = async (e: Event) => {
             placeholder="50000"
             required
         />
+
+        <CSCheck v-model="isCheck" label="Done?" class="mt-16px" />
 
         <CSButton
             type="submit"
