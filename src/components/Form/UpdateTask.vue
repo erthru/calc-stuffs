@@ -1,36 +1,40 @@
 <script lang="ts" setup>
 import { useActivityStore } from "@/stores/activity";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+
+const props = defineProps({
+    index: Number,
+});
 
 const emit = defineEmits(["success"]);
 const label = ref("");
 const cost = ref("");
-const isTaskExist = ref(false);
 const isLoading = ref(false);
 const activityStore = useActivityStore();
 const route = useRoute();
 
+onMounted(() => {
+    label.value = activityStore.activityById.tasks[props.index!!].label;
+
+    cost.value =
+        activityStore.activityById.tasks[props.index!!].cost.toString();
+});
+
 const submit = async (e: Event) => {
     e.preventDefault();
 
-    try {
-        isTaskExist.value = false;
-        isLoading.value = true;
+    isLoading.value = true;
 
-        await activityStore.addTask(
-            route.params.id as string,
-            label.value,
-            Number(cost.value)
-        );
+    await activityStore.updateTask(
+        route.params.id as string,
+        props.index!!,
+        Number(cost.value)
+    );
 
-        await activityStore.fetchById(route.params.id as string);
-        emit("success");
-    } catch (error) {
-        isTaskExist.value = true;
-    } finally {
-        isLoading.value = false;
-    }
+    await activityStore.fetchById(route.params.id as string);
+    isLoading.value = false;
+    emit("success");
 };
 </script>
 
@@ -41,6 +45,7 @@ const submit = async (e: Event) => {
             label="Label"
             placeholder="ex: Snacking"
             required
+            disabled
         />
 
         <CSTextField
@@ -50,13 +55,6 @@ const submit = async (e: Event) => {
             class="mt-16px"
             placeholder="50000"
             required
-        />
-
-        <CSAlert
-            v-if="isTaskExist"
-            color="text-white bg-red-500"
-            message="Task Exist"
-            class="mt-16px"
         />
 
         <CSButton

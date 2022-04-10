@@ -81,7 +81,11 @@ const total = computed(() => {
         <ListTasks v-if="!isLoading" class="mt-16px" />
 
         <div
-            v-if="!isLoading && activityStore.activityById.tasks.length > 0"
+            v-if="
+                !isLoading &&
+                activityStore.activityById.tasks &&
+                activityStore.activityById.tasks.length > 0
+            "
             class="mt-16px pb-16px border-b-1px border-gray-200 px-16px"
         >
             <p class="font-500 text-gray-800">Total</p>

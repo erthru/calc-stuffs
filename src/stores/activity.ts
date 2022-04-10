@@ -138,6 +138,20 @@ export const useActivityStore = defineStore({
             }
         },
 
+        async updateTask(id: string, taskIndex: number, cost: number) {
+            const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
+            const activitySnapshot = await getDoc(dr);
+
+            const tempTasks = [...activitySnapshot.data()?.tasks];
+            tempTasks[taskIndex].cost = cost;
+
+            await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
+                name: activitySnapshot.data()?.name,
+                tasks: tempTasks,
+                userId: activitySnapshot.data()?.userId,
+            });
+        },
+
         async delete(id: string) {
             await deleteDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id));
         },
