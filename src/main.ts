@@ -16,7 +16,7 @@ const router = createRouter({
         },
         {
             path: "/activity/:id",
-            component: () => import("./views/Activity.vue"),
+            component: () => import("./views/ActivityDetail.vue"),
             meta: { auth: true },
         },
         {
