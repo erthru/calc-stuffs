@@ -41,7 +41,7 @@ const onOptionSelected = (index: number) => {
         @option-selected="onOptionSelected"
     />
 
-    <div class="py-16px flex w-full flex-col">
+    <div class="pt-16px flex w-full flex-col">
         <IconCircleNotch
             v-if="isLoading"
             class="w-24px h-24px animate-spin text-green-500 mx-auto"
@@ -51,11 +51,11 @@ const onOptionSelected = (index: number) => {
 
         <p
             v-if="!isLoading"
-            class="text-green-500 font-500 w-full text-center text-14px cursor-pointer"
+            class="text-green-500 font-500 w-full text-center text-14px cursor-pointer bg-white sticky bottom-0"
             :class="[
                 activityStore.activitiesByUserId.length === 0
                     ? 'mt-4px'
-                    : 'mt-16px',
+                    : 'py-16px border-t-1px border-gray-200',
             ]"
             @click="isAddModalShown = true"
         >
