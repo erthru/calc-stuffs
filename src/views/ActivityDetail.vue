@@ -58,7 +58,7 @@ const total = computed(() => {
         @option-selected="onOptionSelected"
     />
 
-    <div class="pb-16px flex w-full flex-col">
+    <div class="flex w-full flex-col">
         <IconCircleNotch
             v-if="isLoading"
             class="w-24px h-24px animate-spin text-green-500 mx-auto mt-16px"
