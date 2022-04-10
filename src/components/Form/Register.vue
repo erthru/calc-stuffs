@@ -81,6 +81,7 @@ const submit = async (e: Event) => {
             class="mt-16px w-full"
             color="bg-green-500 text-white"
             :loading="isLoading"
+            :disabled="!email || !password || !passwordConfirmation"
             >Submit</CSButton
         >
     </form>

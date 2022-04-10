@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 import { useActivityStore } from "@/stores/activity";
+import { useUserStore } from "@/stores/user";
+import { RouterLink } from "vue-router";
 
 const activityStore = useActivityStore();
+const userStore = useUserStore();
 
-const _delete = (id: string) => {};
+const _delete = async (id: string) => {
+    await activityStore.delete(id);
+    await activityStore.fetchAllByUserId(userStore.user?.id!!);
+};
 </script>
 
 <template>
@@ -20,13 +26,16 @@ const _delete = (id: string) => {};
             :key="`activity-${i}`"
             class="pb-16px px-16px cursor-pointer flex w-full items-center border-b-1px border-gray-200"
         >
-            <div class="w-full flex-1 pr-16px">
+            <RouterLink
+                :to="`/activity/${activity.id}`"
+                class="w-full flex-1 pr-16px"
+            >
                 <p class="font-500 text-gray-800">{{ activity.name }}</p>
 
                 <p class="text-gray-500 text-12px mt-2px">
                     {{ activity.tasks.length }} tasks
                 </p>
-            </div>
+            </RouterLink>
 
             <IconTrash
                 class="w-18px h-18px text-red-500"

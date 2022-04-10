@@ -6,7 +6,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     CSAlert: typeof import('./src/components/common/CSAlert.vue')['default']
     CSButton: typeof import('./src/components/common/CSButton.vue')['default']
+    CSModal: typeof import('./src/components/common/CSModal.vue')['default']
     CSTextField: typeof import('./src/components/common/CSTextField.vue')['default']
+    FormAddActivity: typeof import('./src/components/Form/AddActivity.vue')['default']
     FormLogin: typeof import('./src/components/Form/Login.vue')['default']
     'FormLogin copy': typeof import('./src/components/Form/Login copy.vue')['default']
     FormRegister: typeof import('./src/components/Form/Register.vue')['default']

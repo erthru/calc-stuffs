@@ -35,7 +35,7 @@ const submit = async (e: Event) => {
             placeholder="ex: someone@mail.com"
             required
         />
-        
+
         <CSTextField
             v-model="password"
             type="password"
@@ -57,6 +57,7 @@ const submit = async (e: Event) => {
             class="mt-16px w-full"
             color="bg-green-500 text-white"
             :loading="isLoading"
+            :disabled="!email || !password"
             >Submit</CSButton
         >
     </form>

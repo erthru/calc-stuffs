@@ -18,7 +18,7 @@ const onClick = () => {
     <button
         class="px-16px flex items-center justify-center"
         :class="[
-            props.disabled ? 'text-gray-100 bg-gray-600' : props.color,
+            props.disabled ? 'text-gray-100 bg-gray-300 cursor-default' : props.color,
             circle ? 'rounded-full py-16px' : 'rounded py-10px',
         ]"
         :disabled="props.disabled"

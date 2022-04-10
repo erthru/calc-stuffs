@@ -36,11 +36,13 @@ export const useActivityStore = defineStore({
         return {
             activitiesByUserId: [] as Activity[],
             activityById: {} as Activity,
+            isLoading: false,
         };
     },
 
     actions: {
         async fetchAllByUserId(userId: string) {
+            this.isLoading = true;
             const activities: any = [];
 
             const q = query(
@@ -59,8 +61,44 @@ export const useActivityStore = defineStore({
             });
 
             this.activitiesByUserId = activities;
+            this.isLoading = false;
         },
 
-        fetchById(id: string) {},
+        async fetchById(id: string) {},
+
+        async add(name: string, userId: string) {
+            this.isLoading = true;
+            const q = query(
+                collection(getFirestore(), ACTIVITY_COL_NAME),
+                where("userId", "==", userId),
+                where("name", "==", name),
+                limit(1)
+            );
+
+            const checkNameExist = await getDocs(q);
+
+            if (checkNameExist.size > 0) throw "Name Exist";
+            else
+                await addDoc(collection(getFirestore(), ACTIVITY_COL_NAME), {
+                    name,
+                    tasks: [],
+                    userId,
+                });
+            this.isLoading = false;
+        },
+
+        async update(id: string, name: string) {},
+
+        async addTask(id: string, label: string, cost: string) {},
+
+        async toggleCheck(id: string, isCheck: boolean, label: string) {},
+
+        async delete(id: string) {
+            this.isLoading = true;
+            await deleteDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id));
+            this.isLoading = false;
+        },
+
+        async deleteTask(id: string, label: string) {},
     },
 });
