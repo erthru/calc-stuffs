@@ -15,7 +15,9 @@ declare module 'vue' {
     IconCircleNotch: typeof import('./src/assets/icons/IconCircleNotch.svg')['default']
     IconEllipsisVertical: typeof import('./src/assets/icons/IconEllipsisVertical.svg')['default']
     IconRefresh: typeof import('./src/assets/icons/IconRefresh.svg')['default']
+    IconTrash: typeof import('./src/assets/icons/IconTrash.svg')['default']
     IconZ: typeof import('./src/assets/icons/IconZ.svg')['default']
+    ListActivities: typeof import('./src/components/List/Activities.vue')['default']
     Navbar: typeof import('./src/components/Navbar/index.vue')['default']
   }
 }

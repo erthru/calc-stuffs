@@ -31,7 +31,7 @@ const onOptionSelected = (index: number) => {
 </script>
 
 <template>
-    <div class="bg-red-500 px-16px py-14px flex w-full shadow-lg items-center">
+    <div class="bg-red-500 px-16px py-14px flex w-full shadow-lg items-center z-1">
         <p class="text-white font-700 text-[18px]">{{ props.title }}</p>
 
         <div v-if="props.options?.length!! > 0" class="ml-auto relative">
@@ -43,18 +43,24 @@ const onOptionSelected = (index: number) => {
             <div
                 v-if="isOptionsShown"
                 ref="options"
-                class="bg-white rounded absolute p-16px space-y-10px right-0 shadow"
+                class="bg-white rounded absolute pt-16px space-y-10px right-0 shadow focus:outline-none"
                 tabindex="0"
                 @blur="dismissOptions"
             >
-                <p
+                <div
                     v-for="(option, i) in props.options"
                     :key="`option-${i}`"
-                    class="text-gray-800 whitespace-nowrap cursor-pointer"
+                    class="cursor-pointer px-16px pb-16px"
+                    :class="{
+                        'border-b-1px border-gray-200':
+                            i !== props.options?.length!! - 1,
+                    }"
                     @click="onOptionSelected(i)"
                 >
-                    {{ option }}
-                </p>
+                    <p class="text-gray-800 whitespace-nowrap">
+                        {{ option }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>

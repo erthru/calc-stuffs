@@ -6,6 +6,7 @@ const props = defineProps({
     disabled: Boolean,
     color: String,
     loading: Boolean,
+    circle: Boolean,
 });
 
 const onClick = () => {
@@ -15,8 +16,11 @@ const onClick = () => {
 
 <template>
     <button
-        class="px-16px py-10px rounded flex items-center justify-center"
-        :class="[props.disabled ? 'text-gray-100 bg-gray-600' : props.color]"
+        class="px-16px flex items-center justify-center"
+        :class="[
+            props.disabled ? 'text-gray-100 bg-gray-600' : props.color,
+            circle ? 'rounded-full py-16px' : 'rounded py-10px',
+        ]"
         :disabled="props.disabled"
         @click="onClick"
     >

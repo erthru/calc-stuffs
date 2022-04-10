@@ -11,13 +11,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            component: () => import("./masters/index.vue"),
-            children: [
-                {
-                    path: "/",
-                    component: () => import("./views/Home.vue"),
-                },
-            ],
+            component: () => import("./views/Home.vue"),
             meta: { auth: true },
         },
         {
