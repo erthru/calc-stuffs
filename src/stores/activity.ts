@@ -36,13 +36,11 @@ export const useActivityStore = defineStore({
         return {
             activitiesByUserId: [] as Activity[],
             activityById: {} as Activity,
-            isLoading: false,
         };
     },
 
     actions: {
         async fetchAllByUserId(userId: string) {
-            this.isLoading = true;
             const activities: any = [];
 
             const q = query(
@@ -61,13 +59,11 @@ export const useActivityStore = defineStore({
             });
 
             this.activitiesByUserId = activities;
-            this.isLoading = false;
         },
 
         async fetchById(id: string) {},
 
         async add(name: string, userId: string) {
-            this.isLoading = true;
             const q = query(
                 collection(getFirestore(), ACTIVITY_COL_NAME),
                 where("userId", "==", userId),
@@ -84,7 +80,6 @@ export const useActivityStore = defineStore({
                     tasks: [],
                     userId,
                 });
-            this.isLoading = false;
         },
 
         async update(id: string, name: string) {},
@@ -94,9 +89,7 @@ export const useActivityStore = defineStore({
         async toggleCheck(id: string, isCheck: boolean, label: string) {},
 
         async delete(id: string) {
-            this.isLoading = true;
             await deleteDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id));
-            this.isLoading = false;
         },
 
         async deleteTask(id: string, label: string) {},

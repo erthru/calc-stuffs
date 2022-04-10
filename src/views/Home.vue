@@ -8,9 +8,12 @@ const userStore = useUserStore();
 const activityStore = useActivityStore();
 const router = useRouter();
 const isAddModalShown = ref(false);
+const isLoading = ref(false);
 
 onMounted(async () => {
+    isLoading.value = true;
     await activityStore.fetchAllByUserId(userStore.user?.id!!);
+    isLoading.value = false;
 });
 
 const logout = async () => {
@@ -40,14 +43,14 @@ const onOptionSelected = (index: number) => {
 
     <div class="py-16px flex w-full flex-col">
         <IconCircleNotch
-            v-if="activityStore.isLoading"
+            v-if="isLoading"
             class="w-24px h-24px animate-spin text-green-500 mx-auto"
         />
 
-        <ListActivities v-if="!activityStore.isLoading" />
+        <ListActivities v-if="!isLoading" />
 
         <p
-            v-if="!activityStore.isLoading"
+            v-if="!isLoading"
             class="text-green-500 font-500 w-full text-center text-14px cursor-pointer"
             :class="[
                 activityStore.activitiesByUserId.length === 0
