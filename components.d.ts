@@ -11,7 +11,6 @@ declare module 'vue' {
     CSTextField: typeof import('./src/components/common/CSTextField.vue')['default']
     FormAddActivity: typeof import('./src/components/Form/AddActivity.vue')['default']
     FormAddTask: typeof import('./src/components/Form/AddTask.vue')['default']
-    'FormAddTask copy': typeof import('./src/components/Form/AddTask copy.vue')['default']
     FormLogin: typeof import('./src/components/Form/Login.vue')['default']
     FormRegister: typeof import('./src/components/Form/Register.vue')['default']
     FormUpdateActivity: typeof import('./src/components/Form/UpdateActivity.vue')['default']
