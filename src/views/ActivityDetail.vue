@@ -58,15 +58,15 @@ const total = computed(() => {
         @option-selected="onOptionSelected"
     />
 
-    <div class="py-16px flex w-full flex-col">
+    <div class="pb-16px flex w-full flex-col">
         <IconCircleNotch
             v-if="isLoading"
-            class="w-24px h-24px animate-spin text-green-500 mx-auto"
+            class="w-24px h-24px animate-spin text-green-500 mx-auto mt-16px"
         />
 
         <div
             v-if="!isLoading"
-            class="flex w-full items-center px-16px pb-16px border-b-1px border-gray-200"
+            class="flex w-full items-center pt-16px px-16px pb-16px border-b-1px border-gray-200 sticky top-60px bg-white"
         >
             <p class="font-500 w-full flex-1 text-gray-800">
                 {{ activityStore.activityById.name }}
@@ -86,7 +86,7 @@ const total = computed(() => {
                 activityStore.activityById.tasks &&
                 activityStore.activityById.tasks.length > 0
             "
-            class="mt-16px pb-16px border-b-1px border-gray-200 px-16px"
+            class="py-16px bg-white border-b-1px border-t-1px border-gray-200 px-16px sticky bottom-46px"
         >
             <p class="font-500 text-gray-800">Total</p>
 
@@ -97,7 +97,7 @@ const total = computed(() => {
 
         <p
             v-if="!isLoading"
-            class="text-green-500 font-500 w-full text-center text-14px cursor-pointer mt-16px"
+            class="text-green-500 font-500 w-full text-center text-14px bg-white py-16px cursor-pointer sticky bottom-0px"
             @click="isAddTaskModalShown = true"
         >
             Add New Task
