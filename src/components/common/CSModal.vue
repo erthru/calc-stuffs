@@ -15,7 +15,7 @@ const emit = defineEmits(["update:modelValue"]);
             @click="emit('update:modelValue', false)"
         />
 
-        <div class="z-3 fixed top-0 w-full max-w-640px py-32px px-16px">
+        <div class="z-3 fixed top-0 w-full max-w-640px py-16px px-16px">
             <div class="bg-white rounded shadow py-16px">
                 <div class="px-16px border-b-1px border-gray-200 pb-16px">
                     <p class="font-700 text-gray-800">{{ props.title }}</p>
