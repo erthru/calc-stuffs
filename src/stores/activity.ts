@@ -61,7 +61,15 @@ export const useActivityStore = defineStore({
             this.activitiesByUserId = activities;
         },
 
-        async fetchById(id: string) {},
+        async fetchById(id: string) {
+            const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
+            const activitySnapshot = await getDoc(dr);
+
+            this.activityById = {
+                ...activitySnapshot.data(),
+                id: activitySnapshot.id,
+            } as Activity;
+        },
 
         async add(name: string, userId: string) {
             const q = query(
@@ -82,7 +90,29 @@ export const useActivityStore = defineStore({
                 });
         },
 
-        async update(id: string, name: string) {},
+        async update(id: string, name: string, userId: string) {
+            const dr = doc(getFirestore(), ACTIVITY_COL_NAME, id);
+            const activitySnapshot = await getDoc(dr);
+
+            if (name !== activitySnapshot.data()?.name) {
+                const q = query(
+                    collection(getFirestore(), ACTIVITY_COL_NAME),
+                    where("userId", "==", userId),
+                    where("name", "==", name),
+                    limit(1)
+                );
+
+                const checkNameExist = await getDocs(q);
+
+                if (checkNameExist.size > 0) throw "Name Exist";
+                else
+                    await setDoc(doc(getFirestore(), ACTIVITY_COL_NAME, id), {
+                        name,
+                        tasks: activitySnapshot.data()?.tasks,
+                        userId,
+                    });
+            }
+        },
 
         async addTask(id: string, label: string, cost: string) {},
 
