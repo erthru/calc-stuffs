@@ -19,7 +19,8 @@ const _delete = async (label: string) => {
         <div
             v-for="(task, i) in activityStore.activityById.tasks"
             :key="`activity-${i}`"
-            class="pb-16px px-16px flex w-full items-center border-b-1px border-gray-200 cursor-pointer mt-16px"
+            class="py-16px px-16px flex w-full items-center border-b-1px border-gray-200 cursor-pointer"
+            :class="[task.isCheck ? 'bg-green-100' : 'bg-red-100']"
         >
             <div
                 class="w-full flex-1 pr-16px"
@@ -30,14 +31,7 @@ const _delete = async (label: string) => {
                     }
                 "
             >
-                <div class="flex items-center w-full">
-                    <p class="font-500 text-gray-800">{{ task.label }}</p>
-
-                    <IconCheck
-                        v-if="task.isCheck"
-                        class="w-14px h-14px text-green-500 ml-4px"
-                    />
-                </div>
+                <p class="font-500 text-gray-800">{{ task.label }}</p>
 
                 <p class="text-gray-500 text-12px mt-2px">
                     {{ task.cost.toLocaleString() }}

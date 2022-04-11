@@ -24,8 +24,13 @@ const _delete = async (id: string) => {
         <div
             v-for="(activity, i) in activityStore.activitiesByUserId"
             :key="`activity-${i}`"
-            class="pb-16px px-16px cursor-pointer flex w-full items-center border-b-1px border-gray-200"
-            :class="{ 'mt-16px': i > 0 }"
+            class="py-16px px-16px cursor-pointer flex w-full items-center border-b-1px border-gray-200"
+            :class="[
+                activity.tasks.filter((task) => !task.isCheck).length > 0 ||
+                activity.tasks.length === 0
+                    ? 'bg-red-100'
+                    : 'bg-green-100',
+            ]"
         >
             <RouterLink
                 :to="`/activity/${activity.id}`"
