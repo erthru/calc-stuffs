@@ -66,7 +66,15 @@ const total = computed(() => {
 
         <div
             v-if="!isLoading"
-            class="flex w-full items-center pt-16px px-16px pb-16px border-b-1px border-gray-200 sticky top-60px bg-white"
+            class="flex w-full items-center pt-16px px-16px pb-16px border-b-1px border-gray-200 sticky top-60px"
+            :class="[
+                !activityStore.activityById.tasks ||
+                activityStore.activityById.tasks.filter((task) => !task.isCheck)
+                    .length > 0 ||
+                activityStore.activityById.tasks.length === 0
+                    ? 'bg-red-100'
+                    : 'bg-green-100',
+            ]"
         >
             <p class="font-500 w-full flex-1 text-gray-800">
                 {{ activityStore.activityById.name }}
@@ -86,7 +94,15 @@ const total = computed(() => {
                 activityStore.activityById.tasks &&
                 activityStore.activityById.tasks.length > 0
             "
-            class="py-16px bg-white border-b-1px border-t-1px border-gray-200 px-16px sticky bottom-46px"
+            class="py-16px border-b-1px border-t-1px border-gray-200 px-16px sticky bottom-46px"
+            :class="[
+                !activityStore.activityById.tasks ||
+                activityStore.activityById.tasks.filter((task) => !task.isCheck)
+                    .length > 0 ||
+                activityStore.activityById.tasks.length === 0
+                    ? 'bg-red-100'
+                    : 'bg-green-100',
+            ]"
         >
             <p class="font-500 text-gray-800">Total</p>
 
