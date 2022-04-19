@@ -15,7 +15,7 @@ const _delete = async (id: string) => {
 <template>
     <p
         v-if="activityStore.activitiesByUserId.length === 0"
-        class="text-14px w-full text-center text-gray-700 leading-22px"
+        class="text-14px w-full text-center text-gray-700 leading-22px mt-[16px]"
     >
         Activities Empty.
     </p>
