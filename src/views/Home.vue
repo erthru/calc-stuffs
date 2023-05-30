@@ -10,11 +10,15 @@ const router = useRouter();
 const isAddModalShown = ref(false);
 const isLoading = ref(false);
 
-onMounted(async () => {
+onMounted(() => {
+    fetchAllUserById();
+});
+
+const fetchAllUserById = async () => {
     isLoading.value = true;
     await activityStore.fetchAllByUserId(userStore.user?.id!!);
     isLoading.value = false;
-});
+};
 
 const logout = async () => {
     await userStore.logout();
@@ -24,9 +28,13 @@ const logout = async () => {
 const onOptionSelected = (index: number) => {
     switch (index) {
         case 0:
+            fetchAllUserById();
             break;
 
         case 1:
+            break;
+
+        case 2:
             logout();
             break;
     }
@@ -37,7 +45,7 @@ const onOptionSelected = (index: number) => {
     <Navbar
         title="Home"
         class="sticky top-0"
-        :options="['Change Password', 'Logout']"
+        :options="['Refresh', 'Change Password', 'Logout']"
         @option-selected="onOptionSelected"
     />
 

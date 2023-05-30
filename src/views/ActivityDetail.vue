@@ -12,18 +12,26 @@ const isLoading = ref(false);
 const isUpdateModalShown = ref(false);
 const isAddTaskModalShown = ref(false);
 
-onMounted(async () => {
+onMounted(() => {
+    fetchById();
+});
+
+const fetchById = async () => {
     isLoading.value = true;
     await activityStore.fetchById(route.params.id as string);
     isLoading.value = false;
-});
+};
 
 const onOptionSelected = (index: number) => {
     switch (index) {
         case 0:
+            fetchById();
             break;
 
         case 1:
+            break;
+
+        case 2:
             logout();
             break;
     }
@@ -47,13 +55,41 @@ const total = computed(() => {
 
     return 0;
 });
+
+const done = computed(() => {
+    let totalTemp = 0;
+
+    if (activityStore.activityById.tasks) {
+        activityStore.activityById.tasks.forEach((task) => {
+            if (task.isCheck) totalTemp += task.cost;
+        });
+
+        return totalTemp;
+    }
+
+    return 0;
+});
+
+const pending = computed(() => {
+    let totalTemp = 0;
+
+    if (activityStore.activityById.tasks) {
+        activityStore.activityById.tasks.forEach((task) => {
+            if (!task.isCheck) totalTemp += task.cost;
+        });
+
+        return totalTemp;
+    }
+
+    return 0;
+});
 </script>
 
 <template>
     <Navbar
         title="Activity Detail"
         class="sticky top-0"
-        :options="['Change Password', 'Logout']"
+        :options="['Refresh', 'Change Password', 'Logout']"
         back-to="/"
         @option-selected="onOptionSelected"
     />
@@ -94,21 +130,64 @@ const total = computed(() => {
                 activityStore.activityById.tasks &&
                 activityStore.activityById.tasks.length > 0
             "
-            class="py-16px border-b-1px border-t-1px border-gray-200 px-16px sticky bottom-46px"
-            :class="[
-                !activityStore.activityById.tasks ||
-                activityStore.activityById.tasks.filter((task) => !task.isCheck)
-                    .length > 0 ||
-                activityStore.activityById.tasks.length === 0
-                    ? 'bg-red-100'
-                    : 'bg-green-100',
-            ]"
+            class="sticky bottom-46px"
         >
-            <p class="font-500 text-gray-800">Total</p>
+            <div
+                class="py-10px flex items-center space-x-6px border-b-1px border-t-1px border-gray-200 px-16px"
+                :class="[
+                    !activityStore.activityById.tasks ||
+                    activityStore.activityById.tasks.filter(
+                        (task) => !task.isCheck
+                    ).length > 0 ||
+                    activityStore.activityById.tasks.length === 0
+                        ? 'bg-red-100'
+                        : 'bg-green-100',
+                ]"
+            >
+                <p class="font-500 text-16px text-gray-800">Pending:</p>
 
-            <p class="text-gray-500 text-12px mt-2px">
-                {{ total.toLocaleString() }}
-            </p>
+                <p class="text-gray-500 mt-2px text-14px">
+                    {{ pending.toLocaleString() }}
+                </p>
+            </div>
+
+            <div
+                class="py-10px flex items-center space-x-6px border-b-1px border-t-1px border-gray-200 px-16px"
+                :class="[
+                    !activityStore.activityById.tasks ||
+                    activityStore.activityById.tasks.filter(
+                        (task) => !task.isCheck
+                    ).length > 0 ||
+                    activityStore.activityById.tasks.length === 0
+                        ? 'bg-red-100'
+                        : 'bg-green-100',
+                ]"
+            >
+                <p class="font-500 text-16px text-gray-800">Done:</p>
+
+                <p class="text-gray-500 mt-2px text-14px">
+                    {{ done.toLocaleString() }}
+                </p>
+            </div>
+
+            <div
+                class="py-10px flex items-center space-x-6px border-b-1px border-t-1px border-gray-200 px-16px"
+                :class="[
+                    !activityStore.activityById.tasks ||
+                    activityStore.activityById.tasks.filter(
+                        (task) => !task.isCheck
+                    ).length > 0 ||
+                    activityStore.activityById.tasks.length === 0
+                        ? 'bg-red-100'
+                        : 'bg-green-100',
+                ]"
+            >
+                <p class="font-500 text-16px text-gray-800">Total:</p>
+
+                <p class="text-gray-500 mt-2px text-14px">
+                    {{ total.toLocaleString() }}
+                </p>
+            </div>
         </div>
 
         <p
